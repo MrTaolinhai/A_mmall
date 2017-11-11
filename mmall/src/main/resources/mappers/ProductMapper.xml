@@ -176,4 +176,29 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!-- 分页 -->
+  <select id="selectList" resultMap="BaseResultMap">
+      SELECT
+        <include refid="Base_Column_List"/>
+      FROM
+        mmall_product
+      ORDER  BY
+        id ASC
+  </select>
+  <!-- 搜索查询 -->
+  <select id="selectByNameAndProductId" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+      <include refid="Base_Column_List"/>
+    FROM
+      mmall_product
+    <where>
+        <if test="productName != null">
+            and  name LIKE #{productName}
+        </if>
+        <if test="productId != null">
+            and id = #{productId}
+        </if>
+    </where>
+  </select>
+
 </mapper>
