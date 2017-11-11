@@ -35,8 +35,8 @@
       update_time)
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{question,jdbcType=VARCHAR}, 
-      #{answer,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{answer,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, now(),
+      now())
   </insert>
   <insert id="insertSelective" parameterType="com.mmall.pojo.User" >
     insert into mmall_user
@@ -221,7 +221,7 @@
   <!--通过id查询是否为当前email  查询条件是不是当前用户登录的email 这样就是别人用的,返回大于0 就不能用 -->
   <select id="checkEmailByUserId" parameterType="map" resultType="int">
       SELECT
-        COUNT (1)
+        COUNT(1)
       FROM
         mmall_user
       WHERE

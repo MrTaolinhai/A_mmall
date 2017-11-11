@@ -116,4 +116,15 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!--获取当前分类id及递归子节点-->
+  <select id="selectCategoryChildrenByParentId" parameterType="integer" resultMap="BaseResultMap">
+      SELECT
+        <include refid="Base_Column_List" />
+      FROM
+        mmall_category
+      WHERE
+        parent_id = #{parentId}
+  </select>
+
 </mapper>

@@ -22,4 +22,7 @@ public interface IUserService {
     public ServerResponse<User> update_infomation(User user);
     //获取用户详细信息
     public ServerResponse<User> get_infomation(Integer userId);
+
+    //后台 (校验用户是否为管理员)
+    public ServerResponse checkAdminRole(User user);
 }

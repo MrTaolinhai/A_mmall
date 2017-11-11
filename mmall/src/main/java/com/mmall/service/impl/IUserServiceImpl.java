@@ -113,7 +113,7 @@ public class IUserServiceImpl implements IUserService {
      * 忘记密码 , 查看是否有该用户
      */
     public ServerResponse selectQuestion(String username){
-        ServerResponse<String> serverResponse = this.checkValid(username, Const.CURRENT_USER);
+        ServerResponse<String> serverResponse = checkValid(username, Const.USERNAME);
         if(serverResponse.isSuccess()){
             //应该是为用户不存在
             return ServerResponse.createByErrorMessage("用户不存在");
@@ -157,7 +157,7 @@ public class IUserServiceImpl implements IUserService {
             return ServerResponse.createByErrorMessage("参数传递错误");
         }
         //判断用户名
-        ServerResponse<String> serverResponse = this.checkValid(username, Const.CURRENT_USER);
+        ServerResponse<String> serverResponse = checkValid(username, Const.USERNAME);
         if(serverResponse.isSuccess()){
             //应该是为用户不存在
             return ServerResponse.createByErrorMessage("用户不存在");
@@ -248,4 +248,25 @@ public class IUserServiceImpl implements IUserService {
         user.setPassword(StringUtils.EMPTY);
         return ServerResponse.createBySuccess(user);
     }
+
+
+    /**
+     *  后台 backend
+     */
+
+    /**
+     * 校验是否为管理员
+     * @param user
+     * @return
+     */
+
+    public ServerResponse checkAdminRole(User user){
+        //判断用户是否不为空和是否为管理员
+        if(user != null && user.getRole().intValue() == Const.role.ROLE_ADMIN){
+            //返回成功
+            return  ServerResponse.createBySuccess();
+        }
+        return ServerResponse.createByError();
+    }
+
 }
